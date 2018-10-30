@@ -19,60 +19,64 @@ typedef NS_ENUM(NSInteger,ViewAlignment){
     ViewAlignmentRight,
 };
 
+
+
+
 @interface BSYAlertBox : NSObject
 
++(BSYAlertBox *)shareAlertBox;
 
 /**
  居中显示
  */
--(void)initCenterAlertBoxWithText:(NSString *)text;
+-(void)showCenterAlertBoxWithText:(NSString *)text;
 
 
 /**
  居上显示
  */
--(void)initTopAlertWithText:(NSString *)text;
+-(void)showTopAlertWithText:(NSString *)text;
 
 
 /**
  居下显示
  */
--(void)initBottomAlertWithText:(NSString *)text;
+-(void)showBottomAlertWithText:(NSString *)text;
 
 /**
  居左显示
  */
--(void)initLeftAlertWithText:(NSString *)text;
+-(void)showLeftAlertWithText:(NSString *)text;
 /**
   居右显示
  */
 
--(void)initRightAlertWithText:(NSString *)text;
+-(void)showRightAlertWithText:(NSString *)text;
 
 /**
  居中显示
  @param during 显示时间
  */
--(void)initCenterAlertBoxWithText:(NSString *)text During:(CGFloat)during textColor:(UIColor *)textColor bgColor:(UIColor *)bgColor;
+-(void)showCenterAlertBoxWithText:(NSString *)text During:(CGFloat)during textColor:(UIColor *)textColor bgColor:(UIColor *)bgColor;
 
 /**
  居上显示
  @param during 显示时间
  */
--(void)initTopAlertWithText:(NSString *)text During:(CGFloat)during textColor:(UIColor *)textColor bgColor:(UIColor *)bgColor;
+-(void)showTopAlertWithText:(NSString *)text During:(CGFloat)during textColor:(UIColor *)textColor bgColor:(UIColor *)bgColor;
 
 /**
  居下显示
  @param during 显示时间
  */
--(void)initBottomAlertWithText:(NSString *)text During:(CGFloat)during textColor:(UIColor *)textColor bgColor:(UIColor *)bgColor;
+-(void)showBottomAlertWithText:(NSString *)text During:(CGFloat)during textColor:(UIColor *)textColor bgColor:(UIColor *)bgColor;
 
 
 /**
  居左显示
  @param during 显示时间
  */
--(void)initLeftAlertWithText:(NSString *)text During:(CGFloat)during textColor:(UIColor *)textColor bgColor:(UIColor *)bgColor;
+-(void)showLeftAlertWithText:(NSString *)text During:(CGFloat)during textColor:(UIColor *)textColor bgColor:(UIColor *)bgColor;
 
 
 
@@ -80,5 +84,5 @@ typedef NS_ENUM(NSInteger,ViewAlignment){
  居右显示
  @param during 显示时间
  */
--(void)initRightAlertWithText:(NSString *)text During:(CGFloat)during textColor:(UIColor *)textColor bgColor:(UIColor *)bgColor;
+-(void)showRightAlertWithText:(NSString *)text During:(CGFloat)during textColor:(UIColor *)textColor bgColor:(UIColor *)bgColor;
 @end

@@ -23,6 +23,20 @@
 @end
 @implementation BSYAlertBox
 
+
++(BSYAlertBox *)shareAlertBox
+{
+    static BSYAlertBox *sharedManager;
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedManager = [[BSYAlertBox alloc] init];
+    });
+    return sharedManager;
+}
+
+
+
 -(void)show
 {
     [UIView beginAnimations:@"show" context:NULL];
@@ -38,20 +52,13 @@
     [UIView setAnimationDuration:0.3];
     self.centerText.alpha = 0.0f;
     [UIView commitAnimations];
-    [self.centerText removeFromSuperview];
 }
 /**
  居中显示
  */
--(void)initCenterAlertBoxWithText:(NSString *)text
+-(void)showCenterAlertBoxWithText:(NSString *)text
 {
-    CGFloat TextWith = [self sizeWithText:text Font:[UIFont systemFontOfSize:16]].width+40;
-    if (TextWith<100.0) {
-        TextWith = 100.0;
-    }
-    if (TextWith>=[UIScreen mainScreen].bounds.size.width) {
-        TextWith =[UIScreen mainScreen].bounds.size.width-20;
-    }
+     CGFloat TextWith = [self CalculateFileLengthWithText:text];
     UIWindow *window = [[[UIApplication sharedApplication] windows] lastObject];
     self.centerText.text = text;
     self.centerText.frame = CGRectMake(0, 0, TextWith, 40);
@@ -72,15 +79,9 @@
 /**
  居上显示
  */
--(void)initTopAlertWithText:(NSString *)text
+-(void)showTopAlertWithText:(NSString *)text
 {
-    CGFloat TextWith = [self sizeWithText:text Font:[UIFont systemFontOfSize:16]].width+40;
-    if (TextWith<100.0) {
-        TextWith = 100.0;
-    }
-    if (TextWith>=[UIScreen mainScreen].bounds.size.width) {
-        TextWith =[UIScreen mainScreen].bounds.size.width-20;
-    }
+     CGFloat TextWith = [self CalculateFileLengthWithText:text];
     UIWindow *window = [[[UIApplication sharedApplication] windows] lastObject];
     self.centerText.text = text;
     self.centerText.frame = CGRectMake(0, 0, TextWith, 40);
@@ -95,15 +96,9 @@
 /**
  居下显示
  */
--(void)initBottomAlertWithText:(NSString *)text
+-(void)showBottomAlertWithText:(NSString *)text
 {
-    CGFloat TextWith = [self sizeWithText:text Font:[UIFont systemFontOfSize:16]].width+40;
-    if (TextWith<100.0) {
-        TextWith = 100.0;
-    }
-    if (TextWith>=[UIScreen mainScreen].bounds.size.width) {
-        TextWith =[UIScreen mainScreen].bounds.size.width-20;
-    }
+     CGFloat TextWith = [self CalculateFileLengthWithText:text];
     UIWindow *window = [[[UIApplication sharedApplication] windows] lastObject];
     self.centerText.text = text;
     self.centerText.frame = CGRectMake(0, 0, TextWith, 40);
@@ -116,16 +111,10 @@
 /**
  居左显示
  */
--(void)initLeftAlertWithText:(NSString *)text
+-(void)showLeftAlertWithText:(NSString *)text
 {
 
-    CGFloat TextWith = [self sizeWithText:text Font:[UIFont systemFontOfSize:16]].width+40;
-    if (TextWith<100.0) {
-        TextWith = 100.0;
-    }
-    if (TextWith>=[UIScreen mainScreen].bounds.size.width) {
-        TextWith =[UIScreen mainScreen].bounds.size.width-20;
-    }
+    CGFloat TextWith = [self CalculateFileLengthWithText:text];
     UIWindow *window = [[[UIApplication sharedApplication] windows] lastObject];
     self.centerText.text = text;
     self.centerText.frame = CGRectMake(0, 0, TextWith, 40);
@@ -137,16 +126,10 @@
 /**
  居右显示
  */
--(void)initRightAlertWithText:(NSString *)text
+-(void)showRightAlertWithText:(NSString *)text
 {
 
-    CGFloat TextWith = [self sizeWithText:text Font:[UIFont systemFontOfSize:16]].width+40;
-    if (TextWith<100.0) {
-        TextWith = 100.0;
-    }
-    if (TextWith>=[UIScreen mainScreen].bounds.size.width) {
-        TextWith =[UIScreen mainScreen].bounds.size.width-20;
-    }
+    CGFloat TextWith = [self CalculateFileLengthWithText:text];
     UIWindow *window = [[[UIApplication sharedApplication] windows] lastObject];
     self.centerText.text = text;
     self.centerText.frame = CGRectMake(0, 0, TextWith, 40);
@@ -160,16 +143,10 @@
  居中显示
  @param during 显示时间
  */
--(void)initCenterAlertBoxWithText:(NSString *)text During:(CGFloat)during textColor:(UIColor *)textColor bgColor:(UIColor *)bgColor
+-(void)showCenterAlertBoxWithText:(NSString *)text During:(CGFloat)during textColor:(UIColor *)textColor bgColor:(UIColor *)bgColor
 {
 
-    CGFloat TextWith = [self sizeWithText:text Font:[UIFont systemFontOfSize:16]].width+40;
-    if (TextWith<100.0) {
-        TextWith = 100.0;
-    }
-    if (TextWith>=[UIScreen mainScreen].bounds.size.width) {
-        TextWith =[UIScreen mainScreen].bounds.size.width-20;
-    }
+     CGFloat TextWith = [self CalculateFileLengthWithText:text];
     UIWindow *window = [[[UIApplication sharedApplication] windows] lastObject];
     self.centerText.text = text;
     self.centerText.textColor = textColor?textColor:DefalutTextColor;
@@ -186,15 +163,10 @@
  居上显示
  @param during 显示时间
  */
--(void)initTopAlertWithText:(NSString *)text During:(CGFloat)during textColor:(UIColor *)textColor bgColor:(UIColor *)bgColor
+-(void)showTopAlertWithText:(NSString *)text During:(CGFloat)during textColor:(UIColor *)textColor bgColor:(UIColor *)bgColor
 {
-    CGFloat TextWith = [self sizeWithText:text Font:[UIFont systemFontOfSize:16]].width+40;
-    if (TextWith<100.0) {
-        TextWith = 100.0;
-    }
-    if (TextWith>=[UIScreen mainScreen].bounds.size.width) {
-        TextWith =[UIScreen mainScreen].bounds.size.width-20;
-    }
+
+     CGFloat TextWith = [self CalculateFileLengthWithText:text];
     UIWindow *window = [[[UIApplication sharedApplication] windows] lastObject];
     self.centerText.text = text;
     self.centerText.textColor = textColor?textColor:DefalutTextColor;
@@ -211,15 +183,10 @@
  居下显示
  @param during 显示时间
  */
--(void)initBottomAlertWithText:(NSString *)text During:(CGFloat)during textColor:(UIColor *)textColor bgColor:(UIColor *)bgColor
+-(void)showBottomAlertWithText:(NSString *)text During:(CGFloat)during textColor:(UIColor *)textColor bgColor:(UIColor *)bgColor
 {
-    CGFloat TextWith = [self sizeWithText:text Font:[UIFont systemFontOfSize:16]].width+40;
-    if (TextWith<100.0) {
-        TextWith = 100.0;
-    }
-    if (TextWith>=[UIScreen mainScreen].bounds.size.width) {
-        TextWith =[UIScreen mainScreen].bounds.size.width-20;
-    }
+
+    CGFloat TextWith = [self CalculateFileLengthWithText:text];
     UIWindow *window = [[[UIApplication sharedApplication] windows] lastObject];
     self.centerText.text = text;
     self.centerText.textColor = textColor?textColor:DefalutTextColor;
@@ -237,15 +204,10 @@
  居左显示
  @param during 显示时间
  */
--(void)initLeftAlertWithText:(NSString *)text During:(CGFloat)during textColor:(UIColor *)textColor bgColor:(UIColor *)bgColor
+-(void)showLeftAlertWithText:(NSString *)text During:(CGFloat)during textColor:(UIColor *)textColor bgColor:(UIColor *)bgColor
 {
-    CGFloat TextWith = [self sizeWithText:text Font:[UIFont systemFontOfSize:16]].width+40;
-    if (TextWith<100.0) {
-        TextWith = 100.0;
-    }
-    if (TextWith>=[UIScreen mainScreen].bounds.size.width) {
-        TextWith =[UIScreen mainScreen].bounds.size.width-20;
-    }
+
+    CGFloat TextWith = [self CalculateFileLengthWithText:text];
     UIWindow *window = [[[UIApplication sharedApplication] windows] lastObject];
     self.centerText.text = text;
     self.centerText.textColor = textColor?textColor:DefalutTextColor;
@@ -263,15 +225,10 @@
  居右显示
  @param during 显示时间
  */
--(void)initRightAlertWithText:(NSString *)text During:(CGFloat)during textColor:(UIColor *)textColor bgColor:(UIColor *)bgColor
+-(void)showRightAlertWithText:(NSString *)text During:(CGFloat)during textColor:(UIColor *)textColor bgColor:(UIColor *)bgColor
 {
-    CGFloat TextWith = [self sizeWithText:text Font:[UIFont systemFontOfSize:16]].width+40;
-    if (TextWith<100.0) {
-        TextWith = 100.0;
-    }
-    if (TextWith>=[UIScreen mainScreen].bounds.size.width) {
-        TextWith =[UIScreen mainScreen].bounds.size.width-20;
-    }
+
+    CGFloat TextWith = [self CalculateFileLengthWithText:text];
     UIWindow *window = [[[UIApplication sharedApplication] windows] lastObject];
     self.centerText.text = text;
     self.centerText.textColor = textColor?textColor:DefalutTextColor;
@@ -292,6 +249,26 @@
     return [text boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width, 40) options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size;
 }
 
+/**
+计算文本长度
+
+ @param text 文本
+ @return 返回文本宽度
+ */
+-(CGFloat )CalculateFileLengthWithText:(NSString *)text
+{
+
+    [self hiden];
+    CGFloat TextWith = [self sizeWithText:text Font:[UIFont systemFontOfSize:16]].width+40;
+    if (TextWith<100.0) {
+        TextWith = 100.0;
+    }
+    if (TextWith>=[UIScreen mainScreen].bounds.size.width) {
+        TextWith =[UIScreen mainScreen].bounds.size.width-20;
+    }
+    return TextWith;
+
+}
 -(UILabel *)centerText
 {
     if (!_centerText) {
@@ -308,7 +285,6 @@
         _centerText.layer.masksToBounds = true;
         _centerText.layer.contentsScale = [UIScreen mainScreen].scale;
     }
-
     return _centerText;
 }
 
